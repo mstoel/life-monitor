@@ -110,3 +110,47 @@ html[data-theme="dark"] .footer{color:#6f849b}
 html[data-theme="dark"] .footer b{color:#a9bdcf}
 html[data-theme="dark"] .demo-label{color:#e8bd70;border-color:#695832;background:transparent}
 html[data-theme="dark"] .activity-dot{background:#43d2ad;box-shadow:0 0 0 3px #1b4039}
+
+
+/* Room cards: square illustration on the left, controls on the right */
+.room-card{display:grid!important;grid-template-columns:minmax(105px,38%) minmax(0,1fr);grid-template-rows:auto 1fr auto;column-gap:clamp(12px,1.2vw,20px);row-gap:3px}
+.room-head{grid-column:1/-1;grid-row:1}
+.room-scene{grid-column:1;grid-row:2/4;width:100%;height:auto!important;aspect-ratio:1/1;align-self:center;margin:0!important;border-radius:12px!important}
+.room-scene svg{width:100%;height:100%;object-fit:cover}
+.room-name{grid-column:2;grid-row:2;align-self:end;margin:0!important;font-size:clamp(17px,1.55vw,23px)!important}
+.room-detail{grid-column:2;grid-row:3;align-self:start;margin:2px 0 0!important}
+.room-control{grid-column:2;grid-row:4;align-self:end;justify-content:space-between;margin-top:8px!important;gap:8px}
+.bulb{width:42px!important;height:42px!important;font-size:20px!important}
+.toggle{min-width:142px!important;width:142px!important;min-height:58px!important;justify-content:space-between!important}
+.toggle-label{display:flex!important;align-items:center!important;justify-content:center!important;width:42px!important;height:42px!important;min-width:42px!important;flex:none!important;border-radius:0!important;background:transparent!important;color:inherit!important;font-size:15px!important;line-height:1!important;padding:0!important}
+.toggle .switch-track{width:54px!important;height:32px!important}
+.toggle .switch-track i{width:24px!important;height:24px!important}
+.toggle[aria-pressed=true] .switch-track i{transform:translateX(22px)!important}
+
+/* Four compact lower panels, with activity at the far right */
+.bottom-grid{grid-template-columns:1fr .9fr 1fr 1.2fr!important;gap:10px!important}
+.control-panel{padding:clamp(10px,.9vw,14px)!important}
+.fan-content,.door-content{gap:7px!important}
+.fan-visual{width:clamp(48px,4.2vw,66px)!important;height:clamp(48px,4.2vw,66px)!important}
+.fan-options{grid-template-columns:repeat(2,minmax(42px,1fr))!important;gap:5px!important}
+.fan-speed{min-height:34px!important;padding:6px 7px!important;font-size:9px!important}
+.door-graphic{width:48px!important;height:66px!important}
+.door-button{min-width:76px!important;min-height:34px!important;font-size:9px!important}
+.activity-list{display:grid!important;gap:8px!important;max-height:130px!important;overflow:auto!important;margin:10px 0!important}
+.activity-entry{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important}
+.activity-entry span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.activity-entry b{font-size:8px!important}
+.system-note{font-size:8px!important}
+@media(max-width:1050px) and (orientation:landscape){
+ .room-card{grid-template-columns:34% minmax(0,1fr)}
+ .toggle{min-width:118px!important;width:118px!important}
+ .bottom-grid{grid-template-columns:1fr 1fr 1fr 1.15fr!important}
+ .fan-visual{width:44px!important;height:44px!important}
+ .door-graphic{width:38px!important}
+}
+@media(orientation:portrait){
+ .room-card{display:flex!important;min-height:180px}
+ .room-scene{width:100%;height:auto!important;aspect-ratio:16/7;margin:6px 0 0!important}
+ .room-name,.room-detail,.room-control{grid-column:auto;grid-row:auto}
+ .bottom-grid{grid-template-columns:1fr!important}
+}
