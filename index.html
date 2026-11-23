@@ -2,91 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1220">
-  <title>Life Monitor | Sensor Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09111f">
+  <title>Life Monitor | Smart House</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a class="brand" href="#" aria-label="Life Monitor home">
-        <span class="brand-mark">L<span>.</span></span>
-        <span><strong>Life Monitor</strong><small>IoT CONTROL CENTER</small></span>
-      </a>
-      <div class="nav-label">WORKSPACE</div>
-      <a class="nav-item active" href="#"><span class="nav-icon">▦</span> Overview</a>
-      <a class="nav-item" href="#devices"><span class="nav-icon">◉</span> Devices <span class="nav-count">2</span></a>
-      <a class="nav-item" href="#history"><span class="nav-icon">▤</span> Sensor history</a>
-      <div class="sidebar-bottom">
-        <div class="connection-card">
-          <span class="status-dot"></span>
-          <div><strong>Supabase database</strong><small>Checking connection…</small></div>
-        </div>
-        <div class="profile"><div class="avatar">LM</div><div><strong>Life Monitor</strong><small>Student project</small></div></div>
-      </div>
-    </aside>
+  <main class="dashboard">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Life Monitor home"><span class="brand-mark">L<span>·</span></span><span><b>LIFE MONITOR</b><small>SMART HOUSE CONTROL</small></span></a>
+      <div class="house-state"><span class="pulse"></span><span id="connectionText">CONNECTING TO SENSORS</span><span class="state-divider"></span><span id="clock">--:--</span></div>
+      <button class="refresh-button" id="refreshButton" type="button" aria-label="Refresh sensor data">↻ <span>Refresh</span></button>
+    </header>
 
-    <main class="main-content">
-      <header class="topbar">
-        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
-        <div class="topbar-right"><span class="demo-pill"><i></i> CONNECTING</span><button class="icon-button" aria-label="Notifications">♧</button><div class="avatar small-avatar">LM</div></div>
-      </header>
+    <section class="sensor-strip" aria-label="Live sensor readings">
+      <article class="sensor-tile temp"><div class="sensor-icon">♨</div><div><label>INDOOR TEMPERATURE</label><strong><span id="temperatureValue">—</span><small>°C</small></strong><em id="temperatureSource">Waiting for sensor</em></div></article>
+      <article class="sensor-tile humidity"><div class="sensor-icon">◌</div><div><label>HUMIDITY</label><strong><span id="humidityValue">—</span><small>%</small></strong><em id="humiditySource">Waiting for sensor</em></div></article>
+      <article class="sensor-tile light"><div class="sensor-icon">☼</div><div><label>LIGHT LEVEL</label><strong><span id="lightValue">—</span><small>lx</small></strong><em id="lightSource">Waiting for sensor</em></div></article>
+      <article class="sensor-tile distance"><div class="sensor-icon">⌖</div><div><label>ULTRASONIC DISTANCE</label><strong><span id="distanceValue">—</span><small>cm</small></strong><em id="distanceSource">Waiting for sensor</em></div></article>
+    </section>
 
-      <section class="page-heading">
-        <div><p class="eyebrow">MONITORING OVERVIEW</p><h1>Good morning <span>👋</span></h1><p class="muted">Here’s what’s happening with your sensor network.</p></div>
-        <div class="heading-actions"><span class="updated-label">Last updated <strong id="lastUpdated">just now</strong></span><button class="primary-button" id="refreshButton">↻ &nbsp; Refresh data</button></div>
-      </section>
+    <section class="section-bar"><div><span class="eyebrow">YOUR HOME</span><h1>Room controls</h1></div><div class="section-note"><span class="key-dot on"></span> ON <span class="key-dot off"></span> OFF <span class="section-separator"></span><span id="lastUpdated">Waiting for readings</span></div></section>
 
-      <section class="notice"><span class="notice-icon">ⓘ</span><div><strong>Connecting to Supabase</strong><p>Checking the sensor_readings table for the latest readings.</p></div><span class="notice-tag">CONNECTING</span></section>
+    <section class="rooms-grid" aria-label="Room light controls">
+      <article class="room-card living">
+        <div class="room-head"><span class="room-icon">⌂</span><span class="room-tag">ROOM 01</span><span class="room-state" id="livingState">LIGHT OFF</span></div>
+        <div class="room-name">Living room</div><p class="room-detail">Main ceiling light</p>
+        <div class="room-control"><div class="bulb"><span>☼</span></div><button class="toggle" data-light="living" aria-pressed="false"><span></span><b>OFF</b></button></div>
+      </article>
+      <article class="room-card bedroom">
+        <div class="room-head"><span class="room-icon">▱</span><span class="room-tag">ROOM 02</span><span class="room-state" id="bedroomState">LIGHT OFF</span></div>
+        <div class="room-name">Bedroom</div><p class="room-detail">Main ceiling light</p>
+        <div class="room-control"><div class="bulb"><span>☼</span></div><button class="toggle" data-light="bedroom" aria-pressed="false"><span></span><b>OFF</b></button></div>
+      </article>
+      <article class="room-card kitchen">
+        <div class="room-head"><span class="room-icon">♨</span><span class="room-tag">ROOM 03</span><span class="room-state" id="kitchenState">LIGHT OFF</span></div>
+        <div class="room-name">Kitchen</div><p class="room-detail">Main ceiling light</p>
+        <div class="room-control"><div class="bulb"><span>☼</span></div><button class="toggle" data-light="kitchen" aria-pressed="false"><span></span><b>OFF</b></button></div>
+      </article>
+    </section>
 
-      <section class="section-heading"><div><h2>Live sensor readings</h2><p class="muted">Latest values from your connected devices</p></div><span class="live-label"><i></i> WAITING</span></section>
-      <section class="metric-grid">
-        <article class="metric-card temperature">
-          <div class="metric-top"><span class="metric-icon">♨</span><span class="metric-change positive">↗ &nbsp; +0.4°</span></div>
-          <p class="metric-name">Temperature</p><div class="metric-value"><span id="temperatureValue">29.5</span><small>°C</small></div><div class="metric-footer"><span>ESP32-01 · Room sensor</span><span class="mini-spark">⌁⌁⌁</span></div>
-        </article>
-        <article class="metric-card humidity">
-          <div class="metric-top"><span class="metric-icon">◌</span><span class="metric-change positive">↘ &nbsp; -2%</span></div>
-          <p class="metric-name">Humidity</p><div class="metric-value"><span id="humidityValue">64</span><small>%</small></div><div class="metric-footer"><span>ESP32-01 · Room sensor</span><span class="mini-spark">⌁⌁⌁</span></div>
-        </article>
-        <article class="metric-card light">
-          <div class="metric-top"><span class="metric-icon">☼</span><span class="metric-change neutral">Stable</span></div>
-          <p class="metric-name">Light level</p><div class="metric-value"><span id="lightValue">728</span><small>lx</small></div><div class="metric-footer"><span>ESP32-02 · Light sensor</span><span class="mini-spark">⌁⌁⌁</span></div>
-        </article>
-        <article class="metric-card distance">
-          <div class="metric-top"><span class="metric-icon">⌖</span><span class="metric-change positive">● &nbsp; Normal</span></div>
-          <p class="metric-name">Distance</p><div class="metric-value"><span id="distanceValue">42</span><small>cm</small></div><div class="metric-footer"><span>ESP32-02 · Ultrasonic</span><span class="mini-spark">⌁⌁⌁</span></div>
-        </article>
-      </section>
+    <section class="bottom-grid">
+      <article class="control-panel fan-panel">
+        <div class="panel-heading"><div><span class="eyebrow">CLIMATE</span><h2>DC fan</h2></div><div class="fan-symbol">✣</div></div>
+        <div class="fan-content"><div class="fan-visual" id="fanVisual"><span>✣</span></div><div class="fan-options"><button class="fan-speed selected" data-speed="0">OFF</button><button class="fan-speed" data-speed="1">LOW</button><button class="fan-speed" data-speed="2">MED</button><button class="fan-speed" data-speed="3">HIGH</button></div></div>
+        <div class="panel-foot"><span>FAN SPEED</span><strong id="fanStatus">OFF</strong></div>
+      </article>
 
-      <section class="content-grid">
-        <article class="panel chart-panel">
-          <div class="panel-heading"><div><h2>Temperature history</h2><p class="muted">Room temperature over time</p></div><div class="range-tabs" role="group" aria-label="Chart time range"><button class="range-tab active" data-range="1H">1H</button><button class="range-tab" data-range="24H">24H</button><button class="range-tab" data-range="7D">7D</button></div></div>
-          <div class="chart-summary"><strong id="chartCurrent">29.5°C</strong><span class="chart-caption">Current temperature</span><span class="chart-legend"><i></i> Temperature</span></div>
-          <div class="chart-wrap"><div class="y-labels"><span>32°</span><span>30°</span><span>28°</span><span>26°</span></div><svg id="temperatureChart" viewBox="0 0 760 220" preserveAspectRatio="none" role="img" aria-label="Sample temperature history line chart"><defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#36c9a5" stop-opacity=".24"/><stop offset="100%" stop-color="#36c9a5" stop-opacity="0"/></linearGradient></defs><g class="grid-lines"><path d="M0 15H760 M0 75H760 M0 135H760 M0 195H760"/></g><path id="chartArea" class="chart-area" d=""/><path id="chartLine" class="chart-line" d=""/><circle id="chartPoint" class="chart-point" cx="0" cy="0" r="5"/></svg></div>
-          <div class="x-labels" id="chartLabels"><span>09:00</span><span>09:10</span><span>09:20</span><span>09:30</span><span>09:40</span><span>09:50</span><span>10:00</span></div>
-        </article>
-        <article class="panel devices-panel" id="devices">
-          <div class="panel-heading"><div><h2>Devices</h2><p class="muted">Your sensor network</p></div><a class="text-link" href="#devices">View all ↗</a></div>
-          <div class="device-row"><div class="device-icon">⌘</div><div class="device-info"><strong>ESP32-01</strong><small>Room environment</small><span class="device-sensors">Temperature · Humidity</span></div><span class="device-status"><i></i> Online</span></div>
-          <div class="device-row"><div class="device-icon purple">⌖</div><div class="device-info"><strong>ESP32-02</strong><small>Light & distance</small><span class="device-sensors">Light · Ultrasonic</span></div><span class="device-status"><i></i> Online</span></div>
-          <div class="device-footer"><span><b>2</b> devices registered</span><span><i class="status-dot"></i> All systems normal</span></div>
-        </article>
-      </section>
+      <article class="control-panel door-panel">
+        <div class="panel-heading"><div><span class="eyebrow">ACCESS</span><h2>Front door</h2></div><div class="door-symbol">▣</div></div>
+        <div class="door-content"><div class="door-graphic" id="doorGraphic"><span>▥</span></div><div class="door-actions"><button class="door-button open" id="openDoor">↗ OPEN</button><button class="door-button close" id="closeDoor">▣ CLOSE</button></div></div>
+        <div class="panel-foot"><span>DOOR POSITION</span><strong id="doorStatus">CLOSED</strong></div>
+      </article>
 
-      <section class="panel history-panel" id="history">
-        <div class="panel-heading"><div><h2>Recent readings</h2><p class="muted">Example sensor events received by the dashboard</p></div><span class="table-count">4 RECORDS</span></div>
-        <div class="table-scroll"><table><thead><tr><th>SENSOR</th><th>DEVICE</th><th>VALUE</th><th>TIME</th><th>STATUS</th></tr></thead><tbody id="readingsTable">
-          <tr><td><span class="table-sensor"><i class="temp-dot"></i> Temperature</span></td><td>ESP32-01</td><td><strong>29.5 °C</strong></td><td>Just now</td><td><span class="normal-status">Normal</span></td></tr>
-          <tr><td><span class="table-sensor"><i class="humid-dot"></i> Humidity</span></td><td>ESP32-01</td><td><strong>64 %</strong></td><td>1 min ago</td><td><span class="normal-status">Normal</span></td></tr>
-          <tr><td><span class="table-sensor"><i class="light-dot"></i> Light level</span></td><td>ESP32-02</td><td><strong>728 lx</strong></td><td>2 min ago</td><td><span class="normal-status">Normal</span></td></tr>
-          <tr><td><span class="table-sensor"><i class="distance-dot"></i> Distance</span></td><td>ESP32-02</td><td><strong>42 cm</strong></td><td>2 min ago</td><td><span class="normal-status">Normal</span></td></tr>
-        </tbody></table></div>
-      </section>
-      <footer class="footer"><span>Life Monitor <span class="footer-dot">·</span> Student IoT project</span><span>Built for learning, measuring & exploring.</span></footer>
-    </main>
-  </div>
-  <script src="app.js?v=3"></script>
+      <article class="control-panel system-panel">
+        <div class="panel-heading"><div><span class="eyebrow">SYSTEM</span><h2>House status</h2></div><div class="system-symbol">⌘</div></div>
+        <div class="system-list"><div><span class="system-indicator" id="dbIndicator"></span><span>Sensor database</span><b id="dbStatus">CONNECTING</b></div><div><span class="system-indicator neutral"></span><span>Room lights</span><b>3 ZONES</b></div><div><span class="system-indicator neutral"></span><span>Fan & door</span><b>CONTROL UI</b></div></div>
+        <div class="system-note">Control buttons are ready for ESP32 integration.</div>
+      </article>
+    </section>
+
+    <footer class="footer"><span><b>LIFE MONITOR</b> <i>·</i> SMART HOUSE</span><span id="footerMessage">Tablet control panel · Landscape mode</span><span class="demo-label">LOCAL CONTROL PREVIEW</span></footer>
+  </main>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
