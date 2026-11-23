@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#09111f">
   <title>Life Monitor | Smart House</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <main class="dashboard">
     <header class="topbar">
       <a class="brand" href="#" aria-label="Life Monitor home"><span class="brand-mark">L<span>·</span></span><span><b>LIFE MONITOR</b><small>SMART HOUSE CONTROL</small></span></a>
       <div class="house-state"><span class="pulse"></span><span id="connectionText">CONNECTING TO SENSORS</span><span class="state-divider"></span><span id="clock">--:--</span></div>
-      <div class="header-actions"><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark mode"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><button class="refresh-button" id="refreshButton" type="button" aria-label="Refresh sensor data">↻ <span>Refresh</span></button></div>
+      <div class="header-actions"><button class="master-button" id="masterPower" type="button" aria-pressed="true"><span class="master-dot"></span><span id="masterLabel">MASTER ON</span></button><button class="theme-button" id="themeToggle" type="button" aria-label="Switch to dark mode"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button><button class="refresh-button" id="refreshButton" type="button" aria-label="Refresh sensor data">↻ <span>Refresh</span></button></div>
     </header>
 
     <section class="sensor-strip" aria-label="Live sensor readings">
@@ -29,19 +29,19 @@
         <div class="room-head"><span class="room-icon">⌂</span><span class="room-tag">ROOM 01</span><span class="room-state" id="livingState">LIGHT OFF</span></div>
         <div class="room-scene living-scene" aria-hidden="true"><svg viewBox="0 0 320 150"><rect x="12" y="12" width="296" height="126" rx="12" fill="#e9f2f7"/><path d="M12 102H308V126Q308 138 296 138H24Q12 138 12 126Z" fill="#d5e2e9"/><rect x="34" y="31" width="85" height="62" rx="5" fill="#a8d5e7"/><path d="M76 31V93M34 62H119" stroke="#fff" stroke-width="4"/><rect x="149" y="71" width="112" height="35" rx="9" fill="#6b9c91"/><rect x="158" y="53" width="94" height="31" rx="9" fill="#83b2a6"/><rect x="160" y="102" width="8" height="25" fill="#8c735d"/><rect x="243" y="102" width="8" height="25" fill="#8c735d"/><rect x="183" y="90" width="46" height="17" rx="5" fill="#d8e6e8"/><path d="M140 126h130" stroke="#b9cbd1" stroke-width="3"/><path d="M205 18v17" stroke="#8c9da5" stroke-width="3"/><path d="M193 35h24l-4 10h-16Z" fill="#f2c45f"/><circle cx="205" cy="40" r="18" fill="#f8d98b" opacity=".22"/></svg></div>
         <div class="room-name">Living room</div><p class="room-detail">Main ceiling light</p>
-        <div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="living" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
+        <div class="room-sensors"><div class="sensor-status" data-sensor="pir"><span class="sensor-mini-icon">◉</span><span><b>MOTION</b><small class="pir-reading">NOT CONNECTED</small></span></div><div class="sensor-status" data-sensor="ldr"><span class="sensor-mini-icon">☼</span><span><b>BRIGHTNESS</b><small class="ldr-reading">NOT CONNECTED</small></span></div></div><div class="room-auto-row"><span class="occupancy-state" id="livingOccupancy">UNKNOWN</span><span class="auto-countdown" id="livingCountdown">—</span><div class="mode-control" role="group" aria-label="living light mode"><button type="button" class="mode-button active" data-mode="auto" data-room="living">AUTO</button><button type="button" class="mode-button" data-mode="manual" data-room="living">MANUAL</button></div></div><div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="living" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
       </article>
       <article class="room-card bedroom">
         <div class="room-head"><span class="room-icon">▱</span><span class="room-tag">ROOM 02</span><span class="room-state" id="bedroomState">LIGHT OFF</span></div>
         <div class="room-scene bedroom-scene" aria-hidden="true"><svg viewBox="0 0 320 150"><rect x="12" y="12" width="296" height="126" rx="12" fill="#f0edf8"/><path d="M12 105H308V126Q308 138 296 138H24Q12 138 12 126Z" fill="#ded8ed"/><rect x="35" y="28" width="76" height="60" rx="5" fill="#b9d9ed"/><path d="M73 28V88M35 58H111" stroke="#fff" stroke-width="4"/><rect x="136" y="70" width="139" height="39" rx="7" fill="#8876a9"/><rect x="145" y="53" width="121" height="29" rx="7" fill="#a99bc5"/><rect x="151" y="56" width="42" height="22" rx="5" fill="#fff" opacity=".85"/><rect x="199" y="56" width="42" height="22" rx="5" fill="#fff" opacity=".85"/><path d="M148 108v19m115-19v19" stroke="#8a745f" stroke-width="5"/><path d="M206 18v17" stroke="#8c9da5" stroke-width="3"/><path d="M194 35h24l-4 10h-16Z" fill="#f2c45f"/><circle cx="206" cy="40" r="18" fill="#f8d98b" opacity=".22"/><path d="M280 44v57m-12-57h24" stroke="#91a1aa" stroke-width="3"/><path d="M268 44q12-17 24 0" fill="#8fbd9d"/></svg></div>
         <div class="room-name">Bedroom</div><p class="room-detail">Main ceiling light</p>
-        <div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="bedroom" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
+        <div class="room-sensors"><div class="sensor-status" data-sensor="pir"><span class="sensor-mini-icon">◉</span><span><b>MOTION</b><small class="pir-reading">NOT CONNECTED</small></span></div><div class="sensor-status" data-sensor="ldr"><span class="sensor-mini-icon">☼</span><span><b>BRIGHTNESS</b><small class="ldr-reading">NOT CONNECTED</small></span></div></div><div class="room-auto-row"><span class="occupancy-state" id="bedroomOccupancy">UNKNOWN</span><span class="auto-countdown" id="bedroomCountdown">—</span><div class="mode-control" role="group" aria-label="bedroom light mode"><button type="button" class="mode-button active" data-mode="auto" data-room="bedroom">AUTO</button><button type="button" class="mode-button" data-mode="manual" data-room="bedroom">MANUAL</button></div></div><div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="bedroom" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
       </article>
       <article class="room-card kitchen">
         <div class="room-head"><span class="room-icon">♨</span><span class="room-tag">ROOM 03</span><span class="room-state" id="kitchenState">LIGHT OFF</span></div>
         <div class="room-scene kitchen-scene" aria-hidden="true"><svg viewBox="0 0 320 150"><rect x="12" y="12" width="296" height="126" rx="12" fill="#f7f0e5"/><path d="M12 103H308V126Q308 138 296 138H24Q12 138 12 126Z" fill="#e7dac8"/><rect x="32" y="28" width="80" height="57" rx="4" fill="#a9d7e5"/><path d="M72 28V85M32 56H112" stroke="#fff" stroke-width="4"/><rect x="135" y="44" width="151" height="12" rx="3" fill="#c89c6d"/><rect x="143" y="56" width="135" height="48" rx="3" fill="#e0b987"/><rect x="154" y="67" width="48" height="36" rx="3" fill="#fff4df"/><rect x="210" y="67" width="56" height="36" rx="3" fill="#fff4df"/><path d="M159 81h38m-38 8h38m19-8h46m-46 8h46" stroke="#d7c2a5" stroke-width="2"/><rect x="169" y="28" width="77" height="17" rx="4" fill="#91a9a4"/><path d="M204 17v12" stroke="#8c9da5" stroke-width="3"/><path d="M193 28h22l-3 8h-16Z" fill="#f2c45f"/><circle cx="204" cy="33" r="16" fill="#f8d98b" opacity=".22"/><path d="M285 76v27" stroke="#92785f" stroke-width="4"/></svg></div>
         <div class="room-name">Kitchen</div><p class="room-detail">Main ceiling light</p>
-        <div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="kitchen" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
+        <div class="room-sensors"><div class="sensor-status" data-sensor="pir"><span class="sensor-mini-icon">◉</span><span><b>MOTION</b><small class="pir-reading">NOT CONNECTED</small></span></div><div class="sensor-status" data-sensor="ldr"><span class="sensor-mini-icon">☼</span><span><b>BRIGHTNESS</b><small class="ldr-reading">NOT CONNECTED</small></span></div></div><div class="room-auto-row"><span class="occupancy-state" id="kitchenOccupancy">UNKNOWN</span><span class="auto-countdown" id="kitchenCountdown">—</span><div class="mode-control" role="group" aria-label="kitchen light mode"><button type="button" class="mode-button active" data-mode="auto" data-room="kitchen">AUTO</button><button type="button" class="mode-button" data-mode="manual" data-room="kitchen">MANUAL</button></div></div><div class="room-control"><div class="bulb"><span>☼</span><small>LIGHT</small></div><button class="toggle" type="button" data-light="kitchen" aria-pressed="false"><span class="toggle-label">OFF</span><span class="switch-track"><i></i></span></button></div>
       </article>
     </section>
 
@@ -60,7 +60,7 @@
 
       <article class="control-panel system-panel status-panel">
         <div class="panel-heading"><div><span class="eyebrow">SYSTEM</span><h2>House status</h2></div><div class="system-symbol">⌘</div></div>
-        <div class="system-list"><div><span class="system-indicator" id="dbIndicator"></span><span>Sensor database</span><b id="dbStatus">CONNECTING</b></div><div><span class="system-indicator neutral"></span><span>Room lights</span><b>3 ZONES</b></div><div><span class="system-indicator neutral"></span><span>Fan &amp; door</span><b>CONTROL UI</b></div></div>
+        <div class="system-list"><div><span class="system-indicator" id="dbIndicator"></span><span>Sensor database</span><b id="dbStatus">CONNECTING</b></div><div><span class="system-indicator neutral"></span><span>Room sensors</span><b>6 PENDING</b></div><div><span class="system-indicator neutral"></span><span>Fan &amp; door</span><b>CONTROL UI</b></div><div><span class="system-indicator neutral"></span><span>Master control</span><b id="masterStatus">ACTIVE</b></div></div>
         <div class="system-note">Ready for ESP32 integration.</div>
       </article>
 
@@ -73,6 +73,6 @@
 
     <footer class="footer"><span><b>LIFE MONITOR</b> <i>·</i> SMART HOUSE</span><span id="footerMessage">Tablet control panel · Landscape mode</span><span class="demo-label">LOCAL CONTROL PREVIEW</span></footer>
   </main>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
