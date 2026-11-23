@@ -4,3 +4,27 @@
 @media(max-width:900px){body{padding:9px}.dashboard{grid-template-rows:7% 16% 8% 30% 30% 5%;gap:.8%}.sensor-tile{padding:9px;gap:8px}.sensor-tile em{font-size:8px}.sensor-icon{width:36px;height:36px;font-size:20px}.toggle{min-width:95px;min-height:44px;gap:8px;padding-right:12px}.toggle span{width:28px;height:28px}.room-card{padding:12px}.room-tag{font-size:8px}.room-state{font-size:8px}.bottom-grid{grid-template-columns:1fr 1fr 1fr}.control-panel{padding:11px}.fan-options{gap:5px}.fan-speed{padding:8px 7px;min-width:0}.door-button{min-width:80px}.system-list>div{font-size:9px}}
 @media(orientation:portrait){html,body{height:auto;min-height:100%;overflow:auto}.dashboard{height:auto;min-height:100vh;display:flex;flex-direction:column;gap:12px}.topbar{min-height:60px}.sensor-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.sensor-tile{min-height:88px}.section-bar{min-height:55px}.rooms-grid{grid-template-columns:1fr;}.room-card{min-height:170px}.bottom-grid{grid-template-columns:1fr}.control-panel{min-height:190px}.footer{min-height:35px;flex-wrap:wrap}.house-state{font-size:9px}.refresh-button span{display:none}}
 @media(max-height:650px) and (orientation:landscape){.dashboard{grid-template-rows:7% 16% 8% 29% 31% 5%;gap:.65%}.brand-mark{width:34px;height:34px}.sensor-tile{padding:7px 12px}.sensor-tile strong{font-size:24px}.room-card{padding:11px}.room-name{margin-top:7px}.bulb{width:48px;height:48px}.toggle{min-height:40px}.control-panel{padding:10px}.fan-visual{width:52px;height:52px;font-size:30px}.door-graphic{height:58px;width:48px}.fan-speed{min-height:34px;padding:6px}.door-button{min-height:35px}}
+
+/* Light, friendly tablet theme */
+:root{color-scheme:light;--bg:#f1f5f7;--panel:#ffffff;--panel2:#f8fbfc;--line:#dce6eb;--text:#203344;--muted:#718494;--mint:#279b7d;--blue:#428fcb;--amber:#d69b35;--purple:#8870c4}
+html,body{background:var(--bg);color:var(--text)}
+.topbar{border-bottom-color:#dce5e9}.brand{color:#203344}.brand-mark{box-shadow:0 4px 12px #218d7520}.brand small{color:#8495a2}.house-state{color:#607587}.state-divider{background:#d4dfe5}.refresh-button{background:#fff;border-color:#d2dfe5;color:#385166;box-shadow:0 2px 7px #29465b0b}
+.sensor-tile,.room-card,.control-panel{background:#fff;border-color:#dce6eb;box-shadow:0 5px 18px #35566b0b}
+.sensor-tile label{color:#718494}.sensor-tile strong{color:#203344}.sensor-tile strong small{color:#7b8d9b}.sensor-tile em{color:#8294a1}
+.sensor-icon{background:#e3f3ed}.humidity .sensor-icon{background:#e7f2fb}.light .sensor-icon{background:#fbf2dc}.distance .sensor-icon{background:#f0ebfa}
+.eyebrow{color:#258d76}.section-note{color:#718494}.key-dot.off{background:#b9c5cc}.section-separator{background:#d5e0e5}
+.room-icon{background:#e7f1f5;color:#4d839d}.bedroom .room-icon{background:#eee9f8;color:#8870bd}.kitchen .room-icon{background:#fbf0dc;color:#ba8733}
+.room-tag,.room-state{color:#758896}.room-name{color:#25394a}.room-detail{color:#7c8f9d}
+.room-scene{height:clamp(74px,8.3vh,112px);margin:10px 0 2px;border-radius:12px;overflow:hidden;background:#edf4f5;display:flex;align-items:center;justify-content:center}
+.room-scene svg{width:100%;height:100%;display:block}
+.room-control{margin-top:auto}.bulb{width:clamp(48px,4.3vw,62px);height:clamp(48px,4.3vw,62px);background:#f0f3f5;border:1px solid #d9e2e7;color:#9aaab4;display:flex;flex-direction:column;gap:0;font-size:25px}.bulb small{font:700 7px 'DM Sans';letter-spacing:1px}.room-card.is-on .bulb{background:#fff3d2;border-color:#e5c36d;color:#e0a52f;box-shadow:0 0 0 5px #f8eac5}
+.toggle{background:#f1f4f6;border-color:#d9e2e7;color:#758896}.toggle span{background:#b5c1c8}.toggle[aria-pressed=true]{background:#e2f4ed;border-color:#9dd8c5;color:#23866e}.toggle[aria-pressed=true] span{background:#2eaa89;box-shadow:0 0 10px #2eaa8944}
+.panel-heading h2{color:#263b4b}.fan-symbol{background:#e2f3ed;color:#258f76}.door-symbol{background:#eee9f8;color:#8870bd}.system-symbol{background:#fbf0dc;color:#bd8a36}
+.fan-visual{width:clamp(72px,6.6vw,96px);height:clamp(72px,6.6vw,96px);background:#eef7f3;border:1px solid #d0e8de;color:#388e7a;font-size:0}.fan-visual svg{width:100%;height:100%;padding:6px}.fan-visual.spinning .fan-blades{transform-origin:60px 60px;animation:spin 1.2s linear infinite}
+.fan-speed{background:#f3f6f8;border-color:#dce5e9;color:#647989}.fan-speed.selected{background:#e1f4ec;border-color:#9bd6c3;color:#23866e}
+.door-graphic{width:clamp(62px,5.8vw,84px);height:clamp(78px,7vw,102px);border:0;border-radius:0;background:transparent;color:#8b704f;font-size:0}.door-graphic svg{width:100%;height:100%;overflow:visible;transition:transform .25s}.door-graphic.open svg{transform:perspective(180px) rotateY(-28deg);transform-origin:left center}
+.door-button.open{background:#e2f4ed;border-color:#a8d9c9;color:#23866e}.door-button.close{background:#f0ecf8;border-color:#d7cbed;color:#8068b6}.door-button.active{box-shadow:0 0 0 2px #8dcdb9}
+.panel-foot{border-top-color:#e3eaee;color:#7c8f9d}.panel-foot strong{color:#344b5d}
+.system-list>div{color:#526a7b}.system-list b{color:#627b8c}.system-indicator.neutral{background:#b8c5cd}.system-note{border-top-color:#e3eaee;color:#82939f}
+.footer{color:#81929e}.footer b{color:#536d7d}.footer i{color:#b4c3ca}.demo-label{color:#9b7025;border-color:#e8d7b0;background:#fff8e9}
+@media(hover:hover){.refresh-button:hover,.fan-speed:hover,.door-button:hover,.toggle:hover{filter:brightness(.98);transform:translateY(-1px)}}
