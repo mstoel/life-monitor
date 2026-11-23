@@ -172,3 +172,9 @@ html[data-theme="dark"] .activity-dot{background:#43d2ad;box-shadow:0 0 0 3px #1
 @media(orientation:portrait){
  .room-scene{grid-row:auto!important;transform:none!important}
 }
+
+
+/* Add a little breathing room above each room illustration */
+.room-scene{transform:translateY(19px)!important}
+@media(max-width:1050px) and (orientation:landscape){.room-scene{transform:translateY(15px)!important}}
+@media(orientation:portrait){.room-scene{transform:none!important}}
