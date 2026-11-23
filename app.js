@@ -72,7 +72,7 @@ document.querySelectorAll(".toggle").forEach(button => {
     const room = button.dataset.light;
     const on = button.getAttribute("aria-pressed") !== "true";
     button.setAttribute("aria-pressed", String(on));
-    button.querySelector("b").textContent = on ? "ON" : "OFF";
+    button.querySelector(".toggle-label").textContent = on ? "ON" : "OFF";
     document.getElementById(room + "State").textContent = on ? "LIGHT ON" : "LIGHT OFF";
     button.closest(".room-card").classList.toggle("is-on", on);
   });
