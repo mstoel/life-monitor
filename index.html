@@ -58,6 +58,12 @@
         <div class="panel-foot"><span>DOOR POSITION</span><strong id="doorStatus">CLOSED</strong></div>
       </article>
 
+      <article class="control-panel system-panel status-panel">
+        <div class="panel-heading"><div><span class="eyebrow">SYSTEM</span><h2>House status</h2></div><div class="system-symbol">⌘</div></div>
+        <div class="system-list"><div><span class="system-indicator" id="dbIndicator"></span><span>Sensor database</span><b id="dbStatus">CONNECTING</b></div><div><span class="system-indicator neutral"></span><span>Room lights</span><b>3 ZONES</b></div><div><span class="system-indicator neutral"></span><span>Fan &amp; door</span><b>CONTROL UI</b></div></div>
+        <div class="system-note">Ready for ESP32 integration.</div>
+      </article>
+
       <article class="control-panel system-panel activity-panel">
         <div class="panel-heading"><div><span class="eyebrow">HOUSE LOG</span><h2>Recent activity</h2></div><div class="system-symbol">◷</div></div>
         <div class="system-list activity-list" id="activityList" aria-live="polite"><div class="activity-entry"><span class="activity-dot"></span><span>Dashboard started</span><b>NOW</b></div></div>
