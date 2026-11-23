@@ -102,19 +102,56 @@ setInterval(loadReadings, 10000);
 
 // These controls currently update the tablet interface only. ESP32 command transport
 // (for example, a secure control endpoint or MQTT broker) can be connected next.
-document.querySelectorAll(".toggle").forEach(button => {
-  button.addEventListener("click", () => {
-    const room = button.dataset.light;
-    const on = button.getAttribute("aria-pressed") !== "true";
-    button.setAttribute("aria-pressed", String(on));
-    button.querySelector(".toggle-label").textContent = on ? "ON" : "OFF";
-    document.getElementById(room + "State").textContent = on ? "LIGHT ON" : "LIGHT OFF";
-    button.closest(".room-card").classList.toggle("is-on", on);
-    addActivity(room.charAt(0).toUpperCase() + room.slice(1) + " light turned " + (on ? "ON" : "OFF"));
+const roomModes = {living:"auto", bedroom:"auto", kitchen:"auto"};
+let masterActive = true;
+function setRoomLight(room,on,log=true){
+  const button=document.querySelector('.toggle[data-light="'+room+'"]');
+  if(!button)return;
+  button.setAttribute("aria-pressed",String(on));
+  button.querySelector(".toggle-label").textContent=on?"ON":"OFF";
+  document.getElementById(room+"State").textContent=on?"LIGHT ON":"LIGHT OFF";
+  button.closest(".room-card").classList.toggle("is-on",on);
+  if(log)addActivity(room.charAt(0).toUpperCase()+room.slice(1)+" light turned "+(on?"ON":"OFF"));
+}
+document.querySelectorAll(".toggle").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const room=button.dataset.light;
+    if(!masterActive||roomModes[room]!=="manual")return;
+    setRoomLight(room,button.getAttribute("aria-pressed")!=="true");
   });
+});
+document.querySelectorAll(".mode-button").forEach(button=>{
+  button.addEventListener("click",()=>{
+    if(!masterActive)return;
+    const room=button.dataset.room, mode=button.dataset.mode;
+    roomModes[room]=mode;
+    document.querySelectorAll('.mode-button[data-room="'+room+'"]').forEach(b=>b.classList.toggle("active",b===button));
+    addActivity(room.charAt(0).toUpperCase()+room.slice(1)+" lighting set to "+mode.toUpperCase());
+  });
+});
+const masterButton=document.getElementById("masterPower");
+masterButton.addEventListener("click",()=>{
+  masterActive=!masterActive;
+  masterButton.setAttribute("aria-pressed",String(masterActive));
+  document.getElementById("masterLabel").textContent=masterActive?"MASTER ON":"MASTER OFF";
+  document.getElementById("masterStatus").textContent=masterActive?"ACTIVE":"ALL OFF";
+  document.querySelectorAll(".room-card").forEach(card=>card.classList.toggle("master-disabled",!masterActive));
+  if(!masterActive){
+    ["living","bedroom","kitchen"].forEach(room=>setRoomLight(room,false,false));
+    document.querySelectorAll(".mode-button").forEach(b=>b.disabled=true);
+    document.querySelectorAll(".toggle").forEach(b=>b.disabled=true);
+    document.querySelectorAll(".fan-speed").forEach(b=>b.classList.toggle("selected",b.dataset.speed==="0"));
+    document.getElementById("fanStatus").textContent="OFF";
+    document.getElementById("fanVisual").classList.remove("spinning");
+    addActivity("MASTER OFF — all lights and fan switched off");
+  }else{
+    document.querySelectorAll(".mode-button,.toggle,.fan-speed").forEach(b=>b.disabled=false);
+    addActivity("MASTER ON — house controls reactivated");
+  }
 });
 document.querySelectorAll(".fan-speed").forEach(button => {
   button.addEventListener("click", () => {
+    if(!masterActive)return;
     document.querySelectorAll(".fan-speed").forEach(b => b.classList.remove("selected"));
     button.classList.add("selected");
     const speed = Number(button.dataset.speed);
@@ -130,5 +167,5 @@ function setDoor(open) {
   document.getElementById("closeDoor").classList.toggle("active", !open);
   addActivity("Front door " + (open ? "opened" : "closed"));
 }
-document.getElementById("openDoor").addEventListener("click", () => setDoor(true));
-document.getElementById("closeDoor").addEventListener("click", () => setDoor(false));
+document.getElementById("openDoor").addEventListener("click", () => { if(masterActive)setDoor(true); });
+document.getElementById("closeDoor").addEventListener("click", () => { if(masterActive)setDoor(false); });
