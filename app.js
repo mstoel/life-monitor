@@ -9,6 +9,41 @@ const metricMap = {
   distance: ["distanceValue", "distanceSource", "cm"]
 };
 
+
+const themeToggle = document.getElementById("themeToggle");
+const savedTheme = localStorage.getItem("lifeMonitorTheme") || "light";
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const dark = theme === "dark";
+  document.getElementById("themeIcon").textContent = dark ? "☀" : "☾";
+  document.getElementById("themeLabel").textContent = dark ? "Light mode" : "Dark mode";
+  themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", dark ? "#09111f" : "#f1f5f7");
+}
+applyTheme(savedTheme);
+themeToggle.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("lifeMonitorTheme", next);
+  applyTheme(next);
+  addActivity("Changed to " + next + " mode");
+});
+
+function addActivity(message) {
+  const list = document.getElementById("activityList");
+  if (!list) return;
+  const entry = document.createElement("div");
+  entry.className = "activity-entry";
+  const dot = document.createElement("span");
+  dot.className = "activity-dot";
+  const label = document.createElement("span");
+  label.textContent = message;
+  const time = document.createElement("b");
+  time.textContent = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  entry.append(dot, label, time);
+  list.prepend(entry);
+  while (list.children.length > 5) list.lastElementChild.remove();
+}
+
 function updateClock() {
   const now = new Date();
   document.getElementById("clock").textContent = now.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
@@ -61,7 +96,7 @@ async function loadReadings() {
     document.getElementById("lastUpdated").textContent = "No live connection";
   }
 }
-document.getElementById("refreshButton").addEventListener("click", loadReadings);
+document.getElementById("refreshButton").addEventListener("click", () => { loadReadings(); addActivity("Sensor readings refreshed"); });
 loadReadings();
 setInterval(loadReadings, 10000);
 
@@ -75,6 +110,7 @@ document.querySelectorAll(".toggle").forEach(button => {
     button.querySelector(".toggle-label").textContent = on ? "ON" : "OFF";
     document.getElementById(room + "State").textContent = on ? "LIGHT ON" : "LIGHT OFF";
     button.closest(".room-card").classList.toggle("is-on", on);
+    addActivity(room.charAt(0).toUpperCase() + room.slice(1) + " light turned " + (on ? "ON" : "OFF"));
   });
 });
 document.querySelectorAll(".fan-speed").forEach(button => {
@@ -84,6 +120,7 @@ document.querySelectorAll(".fan-speed").forEach(button => {
     const speed = Number(button.dataset.speed);
     document.getElementById("fanStatus").textContent = ["OFF","LOW","MEDIUM","HIGH"][speed];
     document.getElementById("fanVisual").classList.toggle("spinning", speed > 0);
+    addActivity("Fan set to " + ["OFF","LOW","MEDIUM","HIGH"][speed]);
   });
 });
 function setDoor(open) {
@@ -91,6 +128,7 @@ function setDoor(open) {
   document.getElementById("doorGraphic").classList.toggle("open", open);
   document.getElementById("openDoor").classList.toggle("active", open);
   document.getElementById("closeDoor").classList.toggle("active", !open);
+  addActivity("Front door " + (open ? "opened" : "closed"));
 }
 document.getElementById("openDoor").addEventListener("click", () => setDoor(true));
 document.getElementById("closeDoor").addEventListener("click", () => setDoor(false));
