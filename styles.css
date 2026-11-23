@@ -154,3 +154,21 @@ html[data-theme="dark"] .activity-dot{background:#43d2ad;box-shadow:0 0 0 3px #1
  .room-name,.room-detail,.room-control{grid-column:auto;grid-row:auto}
  .bottom-grid{grid-template-columns:1fr!important}
 }
+
+
+/* Four bottom panels: keep both status and activity visible */
+.bottom-grid{grid-template-columns:1fr .9fr 1.05fr 1.2fr!important;gap:10px!important}
+.status-panel .system-list{gap:9px!important;margin:10px 0!important}
+.status-panel .system-list>div{font-size:9px!important;gap:6px!important}
+.status-panel .system-list b{font-size:8px!important}
+.status-panel .system-note{margin-top:auto}
+.room-card{grid-template-rows:auto minmax(0,1fr) auto auto!important}
+.room-scene{grid-row:2/5!important;align-self:center!important;transform:translateY(12px)}
+@media(max-width:1050px) and (orientation:landscape){
+ .bottom-grid{grid-template-columns:1fr 1fr 1fr 1.1fr!important}
+ .status-panel .system-list>div{font-size:8px!important}
+ .room-scene{transform:translateY(8px)}
+}
+@media(orientation:portrait){
+ .room-scene{grid-row:auto!important;transform:none!important}
+}
