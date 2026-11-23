@@ -178,3 +178,50 @@ html[data-theme="dark"] .activity-dot{background:#43d2ad;box-shadow:0 0 0 3px #1
 .room-scene{transform:translateY(19px)!important}
 @media(max-width:1050px) and (orientation:landscape){.room-scene{transform:translateY(15px)!important}}
 @media(orientation:portrait){.room-scene{transform:none!important}}
+
+
+/* Smart room sensors, modes and master control */
+.header-actions{gap:8px}
+.master-button{display:flex;align-items:center;gap:8px;min-height:42px;padding:9px 13px;border:1px solid #9bd6c3;border-radius:9px;background:#e2f4ed;color:#18765f;font-size:11px;font-weight:900;letter-spacing:.5px;cursor:pointer}
+.master-dot{width:9px;height:9px;border-radius:50%;background:#299b7d;box-shadow:0 0 0 3px #c8eadf}
+.master-button[aria-pressed="false"]{background:#fff0ed;border-color:#e8b6ad;color:#a84d42}
+.master-button[aria-pressed="false"] .master-dot{background:#c45b4e;box-shadow:0 0 0 3px #f5d9d5}
+.room-card{grid-template-rows:auto minmax(0,1fr) auto auto auto!important}
+.room-scene{grid-row:2/6!important}
+.room-sensors{grid-column:2;grid-row:3;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px;min-width:0}
+.sensor-status{display:flex;align-items:center;gap:6px;min-width:0;padding:6px 7px;border:1px solid #e0e8ec;border-radius:8px;background:#f7fafb}
+.sensor-mini-icon{width:22px;height:22px;flex:none;display:grid;place-items:center;border-radius:6px;background:#eaf0f3;color:#738896;font-size:13px}
+.sensor-status b,.sensor-status small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sensor-status b{font-size:7px;letter-spacing:.7px;color:#728694}
+.sensor-status small{font-size:7px;color:#a0adb5;margin-top:2px}
+.room-auto-row{grid-column:2;grid-row:4;display:flex;align-items:center;gap:6px;min-width:0;margin-top:5px}
+.occupancy-state,.auto-countdown{font-size:7px;font-weight:900;letter-spacing:.4px;color:#8798a2;white-space:nowrap}
+.auto-countdown{margin-left:auto}
+.mode-control{display:flex;gap:2px;margin-left:auto;padding:2px;border:1px solid #dce5e9;border-radius:7px;background:#f1f5f7}
+.mode-button{border:0;border-radius:5px;background:transparent;color:#718494;padding:5px 7px;font-size:7px;font-weight:900;letter-spacing:.4px;cursor:pointer}
+.mode-button.active{background:#dff2eb;color:#18765f;box-shadow:0 1px 2px #1a4a3718}
+.room-control{grid-row:5!important;margin-top:5px!important}
+.room-card.master-disabled .toggle,.room-card.master-disabled .mode-control{opacity:.45}
+.room-card.master-disabled .toggle{cursor:not-allowed}
+.status-panel .system-list{gap:7px!important}
+@media(max-width:1050px) and (orientation:landscape){
+ .room-sensors{gap:4px}.sensor-status{padding:4px}.sensor-status b,.sensor-status small{font-size:6px}
+ .mode-button{padding:4px 5px}.occupancy-state,.auto-countdown{font-size:6px}
+ .master-button{padding:7px 9px}
+}
+@media(orientation:portrait){
+ .room-card{display:flex!important}
+ .room-sensors,.room-auto-row{width:100%;grid-column:auto;grid-row:auto}
+ .room-scene{grid-row:auto!important}
+ .room-control{grid-row:auto!important}
+}
+html[data-theme="dark"] .master-button{background:#153b35;border-color:#2b8c75;color:#72e4c4}
+html[data-theme="dark"] .master-button[aria-pressed="false"]{background:#452724;border-color:#8d5149;color:#ffc0b7}
+html[data-theme="dark"] .sensor-status{background:#17283a;border-color:#304257}
+html[data-theme="dark"] .sensor-status b{color:#9db0c0}
+html[data-theme="dark"] .sensor-status small{color:#7f93a5}
+html[data-theme="dark"] .sensor-mini-icon{background:#26394b;color:#a8bdcc}
+html[data-theme="dark"] .mode-control{background:#1a2a3e;border-color:#3a4d61}
+html[data-theme="dark"] .mode-button{color:#a6b7c8}
+html[data-theme="dark"] .mode-button.active{background:#174238;color:#77e5c6}
+html[data-theme="dark"] .occupancy-state,html[data-theme="dark"] .auto-countdown{color:#9aadc0}
